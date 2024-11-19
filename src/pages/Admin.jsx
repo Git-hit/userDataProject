@@ -8,9 +8,8 @@ const Admin = () => {
   const [role, setRole] = useState(null);
 
   const ADMIN_EMAIL = "admin";
-  const ADMIN_PASSWORD = "admin"; // Predefined admin credentials
+  const ADMIN_PASSWORD = "admin";
 
-  // Check if the admin is already logged in using localStorage
   useEffect(() => {
     const storedAdminStatus = localStorage.getItem("adminLoggedIn");
     if (storedAdminStatus === "true") {
@@ -21,11 +20,10 @@ const Admin = () => {
 
   const loginAsAdmin = (e) => {
     e.preventDefault();
-    // Check if the entered credentials match the predefined admin credentials
     if (username === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       setAdminLoggedIn(true);
       setRole("admin");
-      localStorage.setItem("adminLoggedIn", "true"); // Store admin login state in localStorage
+      localStorage.setItem("adminLoggedIn", "true");
     } else {
       alert("Invalid admin credentials");
     }
@@ -34,17 +32,13 @@ const Admin = () => {
   const logoutAdmin = () => {
     setAdminLoggedIn(false);
     setRole("user");
-    localStorage.removeItem("adminLoggedIn"); // Remove admin login state from localStorage
+    localStorage.removeItem("adminLoggedIn");
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {role === "admin" ? (
         <>
-          {/* <h1>Welcome, Admin!</h1>
-          <button onClick={logoutAdmin} className="p-2 bg-red-500 text-white">
-            Log Out of Admin Panel
-          </button> */}
           <AdminPanelHome />
         </>
       ) : (

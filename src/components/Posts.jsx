@@ -1,5 +1,6 @@
 import { getDatabase, ref, update } from "firebase/database";
 import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 
 export default function Posts({ user, logout }){
   const [activeTab, setActiveTab] = useState("home"); // To track active tab
@@ -59,17 +60,18 @@ export default function Posts({ user, logout }){
   return (
     <div className="flex w-full min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="fixed h-screen w-1/4 bg-white shadow-md flex flex-col p-4">
-        <h2 className="text-xl font-bold mb-6">SocialApp</h2>
-        <button
-          onClick={() => handleTabSwitch("home")}
-          className={`py-2 px-4 mb-2 text-left rounded ${
-            activeTab === "home" ? "bg-blue-500 text-white" : "hover:bg-gray-200"
-          }`}
-        >
-          🏠 Home
-        </button>
-        <button
+      <div className="fixed h-screen w-1/4 bg-white shadow-md flex flex-col justify-between p-4">
+        <div className="flex flex-col">
+            <h2 className="text-xl font-bold mb-6">SocialApp</h2>
+            <button
+                onClick={() => handleTabSwitch("home")}
+                className={`py-2 px-4 mb-2 text-left rounded ${
+                    activeTab === "home" ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+                }`}
+            >
+            🏠 Home
+            </button>
+            <button
           onClick={() => handleTabSwitch("explore")}
           className={`py-2 px-4 mb-2 text-left rounded ${
             activeTab === "explore"
@@ -89,6 +91,15 @@ export default function Posts({ user, logout }){
         >
           ⚙️ Settings
         </button>
+        </div>
+        <div>
+            <Link
+                to="/admin"
+                className="py-2 px-4 mb-2 text-left rounded hover:bg-blue-500 text-white bg-black transition-all duration-150"
+            >
+                Got to Admin Panel
+            </Link>
+        </div>
       </div>
 
       {/* Main Content */}

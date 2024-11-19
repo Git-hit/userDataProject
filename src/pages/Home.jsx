@@ -6,7 +6,7 @@ import Posts from "../components/Posts";
 
 const Home = () => {
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState("user"); // Default role as 'user'
+  const [role, setRole] = useState("user");
 
   useEffect(() => {
     const db = getDatabase();
@@ -17,16 +17,14 @@ const Home = () => {
         setRole("user");
   
         const userRef = ref(db, `users/${currentUser.uid}`);
-  
-        // Update status to online
+        
         await set(userRef, {
           displayName: currentUser.displayName,
           email: currentUser.email,
           online: true,
           lastActive: serverTimestamp(),
         });
-  
-        // Ensure `onDisconnect` is set
+        
         onDisconnect(userRef).update({
           online: false,
           lastActive: serverTimestamp(),
@@ -47,16 +45,14 @@ const Home = () => {
       const { user } = result;
   
       const userRef = ref(db, `users/${user.uid}`);
-  
-      // Update user details and set online status
+      
       await set(userRef, {
         displayName: user.displayName,
         email: user.email,
         online: true,
         lastActive: serverTimestamp(),
       });
-  
-      // Ensure `onDisconnect` is called AFTER the user logs in
+      
       onDisconnect(userRef).update({
         online: false,
         lastActive: serverTimestamp(),
@@ -73,8 +69,7 @@ const Home = () => {
     try {
       const db = getDatabase();
       const userRef = ref(db, `users/${user.uid}`);
-
-      // Mark user as offline before signing out
+      
       await set(userRef, {
         displayName: user.displayName,
         email: user.email,
